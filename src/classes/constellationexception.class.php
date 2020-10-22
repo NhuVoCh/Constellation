@@ -48,6 +48,11 @@ final class ConstellationException extends \Exception
     6 => "Cannot load object",
 
     // 1000 to 1999, database exceptions
+    1000 => "Database not connected",
+    1001 => "SQL script execution failed",
+    1002 => "SQL script preparation failed",
+    1003 => "Missing statement",
+    1004 => "SQL script failed on prepared statement execution",
   ];
 
   //
