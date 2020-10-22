@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+  <description>Coding standard for Constellation</description>
+  <release>1</release>
+
+  <!-- Documents to be analyzed -->
+  <file>./src</file>
+
+  <!-- Global config (arguments) -->
+  <arg name="extensions" value="php" />
+  <arg name="report" value="full" />
+  <arg value="spw" />
+
+  <!-- PEAR rulesets -->
+  <rule ref="PEAR">
+    <!-- Avoid conflict with PSR2 rules (priority on PSR2) -->
+    <exclude name="PEAR.WhiteSpace.ScopeIndent" />
+    <exclude name="PEAR.ControlStructures.MultiLineCondition.CloseBracketNewLine" />
+    <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent" />
+  </rule>
+
+  <!-- PSR2 rulesets -->
+  <rule ref="PSR2">
+    <!-- Prefered PEAR switch break indent style -->
+    <exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent" />
+
+    <!-- Force underscore for private declaration -->
+    <exclude name="PSR2.Classes.PropertyDeclaration.Underscore" />
+    <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
+
+    <!-- No line length limit -->
+    <exclude name="Generic.Files.LineLength.TooLong" />
+  </rule>
+
+  <!-- Add PSR1 operators spacing rules -->
+  <rule ref="PSR12.Operators.OperatorSpacing" />
+
+  <!-- Tab indent fix -->
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="2" />
+    </properties>
+  </rule>
+  <rule ref="PSR2.ControlStructures.SwitchDeclaration">
+    <properties>
+      <property name="indent" value="2" />
+    </properties>
+  </rule>
+</ruleset>
