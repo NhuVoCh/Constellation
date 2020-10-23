@@ -48,11 +48,24 @@ final class ConstellationException extends \Exception
     6 => "Cannot load object",
 
     // 1000 to 1999, database exceptions
+    // 1000 to 1499, global database exceptions
     1000 => "Database not connected",
     1001 => "SQL script execution failed",
     1002 => "SQL script preparation failed",
     1003 => "Missing statement",
     1004 => "SQL script failed on prepared statement execution",
+
+    // 1500 to 1599, mysql database exceptions
+    1500 => "Missing required data for MySQL connection",
+    1501 => "Error while connecting to MySQL database",
+
+    // 1600 to 1699, sqlite database exceptions
+    1600 => "Missing required data for SQLite connection",
+    1601 => "Error while connecting to SQLite database",
+
+    // 1700 to 1799, postgresql database exceptions
+    1700 => "Missing required data for PostgreSQL connection",
+    1701 => "Error while connecting to PostgreSQL database",
   ];
 
   //

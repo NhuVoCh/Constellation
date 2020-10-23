@@ -59,6 +59,18 @@ abstract class DB
   // Constructor, magic methods
   //
 
+  /**
+   * Default constructor
+   *
+   * @param array $data Connection data
+   */
+  public function __construct(array $data = [])
+  {
+    if (count($data) > 0) {
+      $this->connect($data);
+    }
+  }
+
   //
   // Methods
   //
@@ -81,7 +93,7 @@ abstract class DB
    *
    * @return bool
    */
-  public function query(string $sql, int $index = 0) : bool
+  final public function query(string $sql, int $index = 0) : bool
   {
     $result = false;
 
@@ -108,7 +120,7 @@ abstract class DB
    *
    * @return bool
    */
-  public function prepare(string $sql, int $index = 0) : bool
+  final public function prepare(string $sql, int $index = 0) : bool
   {
     $result = false;
 
@@ -133,18 +145,69 @@ abstract class DB
    * @param array $data  Connection data
    * @param int   $index Statement index
    *
-   * @return mixed
+   * @return bool
    */
-  public function execute(array $data = [], int $index = 0)
+  final public function execute(array $data = [], int $index = 0)
   {
-    $result = null;
+    $result = false;
 
     if (!is_null($this->db)) {
-      if (array_key_exists($index, ConstellationException::EXCEPTIONS)) {
+      if (array_key_exists($index, $this->statements)) {
         try {
           $result = $this->statemtents[$index]->execute($data);
         } catch (\PDOException $e) {
           throw new ConstellationException("1004", 0, $e);
+        }
+      } else {
+        throw new ConstellationException("1003");
+      }
+    } else {
+      throw new ConstellationException("1000");
+    }
+
+    return $result;
+  }
+
+  /**
+   * Get data from statement
+   *
+   * @param int $index Statement index
+   *
+   * @return mixed|null
+   */
+  final public function fetch(int $index = 0)
+  {
+    $result = null;
+
+    if (!is_null($this->db)) {
+      if (array_key_exists($index, $this->statements)) {
+        $result = $this->statements[$index]->fetch(\PDO::FETCH_ASSOC);
+      } else {
+        throw new ConstellationException("1003");
+      }
+    } else {
+      throw new ConstellationException("1000");
+    }
+
+    return $result;
+  }
+
+  /**
+   * Get all data from statement
+   *
+   * @param int $index Statement index
+   *
+   * @return array|null
+   */
+  final public function fetchAll(int $index = 0)
+  {
+    $result = null;
+
+    if (!is_null($this->db)) {
+      if (array_key_exists($index, $this->statements)) {
+        $result = [];
+        while (($row = $this->statements[$index]->fetch(\PDO::FETCH_ASSOC)) !== false) {
+          $result[] = $row;
         }
       } else {
         throw new ConstellationException("1003");
@@ -161,13 +224,23 @@ abstract class DB
   //
 
   /**
+   * Is database connected
+   *
+   * @return bool
+   */
+  final public function isConnected() : bool
+  {
+    return is_null($this->db);
+  }
+
+  /**
    * Get a stored statement
    *
    * @param int $index Statement index
    *
    * @return PDOStatement|null
    */
-  public function getStatement(int $index = 0) : ?\PDOStatement
+  final public function getStatement(int $index = 0) : ?\PDOStatement
   {
     return $this->statements[$index] ?? null;
   }
