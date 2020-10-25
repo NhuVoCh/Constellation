@@ -25,3 +25,6 @@ define("NhuVo\\Constellation\\CORE", __DIR__ . DS);
 
 /// Constellation classes directory path
 define("NhuVo\\Constellation\\CORE_CLASSES", CORE . "classes" . DS);
+
+/// Constellation tools directory path
+define("NhuVo\\Constellation\\CORE_TOOLS", CORE . "tools" . DS);

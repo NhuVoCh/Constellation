@@ -78,7 +78,7 @@ class PostgreSQL extends DB
         $username = $data["username"] ?? $data["database"];
         $password = $data["password"] ?? "";
         $charset = $data["charset"] ?? "utf8mb4";
-        $this->db = new \PDO("mysql:host={$hostname};dbname={$database};charset={$charset}", $username, $password);
+        $this->db = new \PDO("pgsql:host={$hostname};dbname={$database};options='-c client_encoding={$charset}'", $username, $password);
         $result = true;
       } catch (\PDOException $e) {
         throw new ConstellationException("1701", 0, $e);

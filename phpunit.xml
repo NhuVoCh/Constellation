@@ -4,7 +4,7 @@
 >
   <testsuites>
     <testsuite name="Database test suite">
-      <file>./test/mysql.test.php</file>
+      <file>./test/database.test.php</file>
     </testsuite>
   </testsuites>
 </phpunit>
