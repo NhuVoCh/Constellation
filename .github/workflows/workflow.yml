@@ -1,0 +1,22 @@
+name: Constellation workflow
+
+on: [push]
+
+jobs:
+  syntax:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php: ['7.3', '7.4']
+      steps:
+        - uses: actions/checkout@v2
+        - run: chmod +x ./ci/syntax.sh && ./ci/syntax.sh ${{ matrix.php }}
+
+  quality:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php: ['7.3', '7.4']
+      steps:
+        - uses: actions/checkout@v2
+        - run: chmod +x ./ci/quality.sh && ./ci/quality.sh ${{ matrix.php }}
