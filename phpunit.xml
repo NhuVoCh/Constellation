@@ -1,0 +1,10 @@
+<phpunit
+    verbose="true"
+    bootstrap="./test/bootstrap.php"
+>
+  <testsuites>
+    <testsuite name="Database test suite">
+      <file>./test/mysql.test.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
