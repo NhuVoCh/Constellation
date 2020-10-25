@@ -5,7 +5,6 @@
 
   <!-- Documents to be analyzed -->
   <file>./src</file>
-  <file>./test</file>
 
   <!-- Global config (arguments) -->
   <arg name="extensions" value="php" />
