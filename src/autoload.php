@@ -44,10 +44,12 @@ spl_autoload_register(
           throw new ConstellationException("4");
         }
       } else {
-        throw new ConstellationException("5");
+        if ($classpath[0] != "PHPUnit") {
+          throw new ConstellationException("5");
+        }
       }
 
-      if ((include_once $classfile) === false) {
+      if ($classpath[0] != "PHPUnit" && (@include_once $classfile) === false) {
         throw new ConstellationException("6");
       }
     }
